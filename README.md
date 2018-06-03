@@ -20,3 +20,6 @@ $article = new Article();
 $article->search("dental");
 $results = $article->getResults();
 ```
+
+### install
+To install the plugin either upload it via the plugins upload form or unzip it into your plugins directory. Currently there is no configuration needed.
