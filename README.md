@@ -1,4 +1,4 @@
-![GitHub Logo](https://avatars2.githubusercontent.com/u/29735511?s=88&v=4)
+(https://avatars2.githubusercontent.com/u/29735511?s=88&v=4)
 
 # wp-artfact
 This plugin will gather free articles from articlesfactory.com to help populate a demo wordpress theme with filler data.
