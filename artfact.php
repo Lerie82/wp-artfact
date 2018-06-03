@@ -41,7 +41,7 @@ switch($page)
 		);
 
 		$id = wp_insert_post($post, true);
-		die(var_dump($id));
+		die("Post added!");
 	break;
 }
 
