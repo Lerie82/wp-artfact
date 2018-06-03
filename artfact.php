@@ -10,6 +10,69 @@ License Uri: https://opensource.org/licenses/LGPL-3.0
 License: LGPL3
 */
 
+if(!defined('WPINC'))
+{
+	die(var_dump("direct access diabled"));
+}
+
+add_action('admin_menu', 'artfact_index_page_create');
+
+function artfact_index_page_create()
+{
+	add_menu_page('Article Factory', 'Article Factory', 'edit_posts', 'artfact_index_page', 'artfact_index_display', '', 24);
+}
+
+function artfact_index_display()
+{
+	//start wrap
+	echo '<div class="wrap">';
+
+	//if the form is submitted
+    	if(isset($_POST['wpquery']))
+	{
+		//update the query
+        	update_option('wpquery', $_POST['wpquery']);
+
+		//search for articles
+        	$article = new Article();
+        	$article->search(get_option('wpquery'));
+	        $results = $article->getResults();
+
+		//show search results
+		echo "<h2>Search results for: ".get_option('wpquery')."</h2>";
+
+		echo '<table class="widefat">
+			<tr>
+				<th class="row-title">Date</th>
+				<th class="row-title">Title/Link</th>
+				<th class="row-title">Action</th>
+			</tr>';
+
+        	foreach($results as $result)
+        	{
+
+        		echo '	<tr>
+                		<td scope="row">
+					<label for="tablecell">
+						'.$result['date'].'
+					</label>
+				</td>
+                		<td>'.$result['title'].'</td>
+				<td><button class="button-secondary">Add Post</button></td>
+        			</tr>';
+	        }
+
+		echo '</table>';
+
+    	} else {
+    		$value = get_option('wpquery', 'wpquery');
+    		include 'search-form.php';
+	}
+
+	//end wrap
+	echo '</div>';
+}
+
 class Article
 {
 	private $title;
@@ -49,7 +112,7 @@ class Article
                 preg_match_all("/<a class=\"small-link\" href=\"(http[:]\/\/www[.]articlesfactory[.]com\/articles\/day\/\d{4}[-]\d{1,2}[-]\d{1,2}[.]html)/", $f, $matches2, PREG_PATTERN_ORDER);
                 $content = filter_var($matches4[1][0], FILTER_SANITIZE_STRING);
 
-		$this->title = $matches[1];
+		$this->title = $matches[0];
 		$this->date = $matches2[1];
 		$this->content = $content;
         }
