@@ -17,9 +17,6 @@ License: LGPL3
 
 require_once("article.php");
 
-$path = explode('/wp-content/', dirname(__FILE__));
-require_once($path[0]."/wp-load.php");
-
 $page = filter_var(@$_GET['page'], FILTER_SANITIZE_STRING);
 
 switch($page)
@@ -45,7 +42,7 @@ switch($page)
 
 function ad_load_scripts()
 {
-	wp_enqueue_script('custom-js', plugins_url('wp-artfact/js/artfact.js', dirname(__FILE__)));
+	wp_enqueue_script('custom-js', plugins_url('js/artfact.js', __FILE__));
 
 	wp_localize_script('custom-js', 'myScript', array(
     		'pluginsUrl' => plugins_url(),
@@ -117,5 +114,4 @@ function artfact_index_display()
 	//end wrap
 	echo '</div>';
 }
-
 ?>
