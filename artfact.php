@@ -18,7 +18,6 @@ License: LGPL3
 require_once("article.php");
 
 $path = explode('/wp-content/', dirname(__FILE__));
-//die(var_dump($path[0]));
 require_once($path[0]."/wp-load.php");
 
 $page = filter_var(@$_GET['page'], FILTER_SANITIZE_STRING);
@@ -52,6 +51,8 @@ function ad_load_scripts()
 	wp_localize_script('custom-js', 'myScript', array(
     		'pluginsUrl' => plugins_url(),
 	));
+
+	wp_enqueue_media();
 }
 add_action('admin_enqueue_scripts', 'ad_load_scripts');
 

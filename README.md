@@ -10,6 +10,7 @@ $article->fillFromUrl("http://www.articlesfactory.com/articles/fitness/dream-wed
 
 ```
 //create a new one from the factory
+//title, date, content
 $article = ArticleFactory::create("test","test","test");
 ```
 
