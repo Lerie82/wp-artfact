@@ -4,7 +4,7 @@ Plugin Name: WP Articles Factory
 Plugin Uri: https://github.com/Lerie82/wp-artfact
 Author: Lerie Taylor
 Description: This plugin allows you to search, find and publish articles from Articlesfactory.com to help fill out a demo WordPress theme.
-Version: 1.0
+Version: 1.1
 Author Uri: https://lerie.us/
 License Uri: https://opensource.org/licenses/LGPL-3.0
 License: LGPL3
@@ -70,7 +70,7 @@ function artfact_index_display()
     	if(isset($_POST['wpquery']))
 	{
 		//update the query
-        	update_option('wpquery', $_POST['wpquery']);
+        	update_option('wpquery', filter_var($_POST['wpquery'], FILTER_SANITIZE_STRING));
 
 		//search for articles
         	$article = new Article();
