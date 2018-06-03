@@ -46,6 +46,11 @@ class Article
 
         $content = filter_var($matches4[1][0], FILTER_SANITIZE_STRING);
 
+	for($i=0;$i<count($matches4[0]);$i++)
+	{
+		$content .= $matches4[1][$i];
+	}
+
 		$this->title = $matches[1];
 		$this->date = $matches2[1];
 		$this->content = $content;
