@@ -40,7 +40,6 @@ switch($page)
 		);
 
 		$id = wp_insert_post($post, true);
-		die("Post added!");
 	break;
 }
 
@@ -79,7 +78,8 @@ function artfact_index_display()
 	        $results = $article->getResults();
 
 		//show search results
-		echo "<h2>Search results for: ".get_option('wpquery')."</h2>";
+		echo "<h2>Search results for: ".get_option('wpquery')."</h2>
+			<p><a href=\"admin.php?page=artfact_index_page\">Search again</a></p>";
 
 		echo '<table class="widefat">
 			<tr>
@@ -88,8 +88,12 @@ function artfact_index_display()
 				<th class="row-title">Action</th>
 			</tr>';
 
+		$boxid = 0;
         	foreach($results as $result)
         	{
+			$boxid++;
+			$box = "td".$boxid;
+
         		preg_match_all("/(http:\/\/www[.]articlesfactory[.]com\/articles\/.+)\"/", $result['title'], $nUrl);
 
         		echo '	<tr>
@@ -99,7 +103,7 @@ function artfact_index_display()
 					</label>
 				</td>
                 		<td>'.$result['title'].'</td>
-						<td><button onClick="addPost(this)" value="'.trim($nUrl[0][0],'"').'" class="button-secondary">Add Post</button></td>
+						<td id="'.$box.'"><button onClick="addPost(this,\''.$box.'\')" value="'.trim($nUrl[0][0],'"').'" class="button-secondary">Add Post</button></td>
         			</tr>';
 	        }
 
